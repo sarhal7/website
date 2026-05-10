@@ -193,10 +193,10 @@ export default function Home() {
                 <video
                   src={project.reelUrl}
                   muted
-                  autoPlay
                   loop
                   playsInline
                   controls
+                  aria-label={`${project.title} preview reel`}
                   className="h-full w-full object-cover transition duration-700 group-hover:scale-110 group-hover:contrast-125"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
