@@ -5,7 +5,7 @@ import { Float, MeshDistortMaterial } from "@react-three/drei";
 import { motion, useScroll, useTransform } from "framer-motion";
 import type { Variants } from "framer-motion";
 import gsap from "gsap";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import type { Mesh } from "three";
 
@@ -88,6 +88,7 @@ export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
+  const [submitMessage, setSubmitMessage] = useState("");
   const { scrollYProgress } = useScroll({ target: aboutRef, offset: ["start end", "end start"] });
   const parallaxY = useTransform(scrollYProgress, [0, 1], [80, -80]);
 
@@ -124,7 +125,7 @@ export default function Home() {
     event.preventDefault();
     const form = event.currentTarget;
     form.reset();
-    console.info("Contact inquiry submitted.");
+    setSubmitMessage("Inquiry received. I’ll reach out soon.");
   };
 
   return (
@@ -263,6 +264,7 @@ export default function Home() {
             <button className="mt-2 w-fit rounded-full bg-violet-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-violet-400" type="submit">
               Send Inquiry
             </button>
+            {submitMessage ? <p className="text-sm text-violet-300">{submitMessage}</p> : null}
           </form>
         </div>
       </section>
