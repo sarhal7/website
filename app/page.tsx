@@ -11,24 +11,24 @@ import type { Mesh } from "three";
 
 type Project = {
   title: string;
-  description: string;
+  details: string;
   reel: string;
 };
 
 const projects: Project[] = [
   {
     title: "Noir Brand Film",
-    description: "Luxury campaign edit with dramatic pacing and cinematic grade.",
+    details: "Luxury campaign edit with dramatic pacing and cinematic grade.",
     reel: "https://cdn.coverr.co/videos/coverr-empty-road-at-night-1579/1080p.mp4",
   },
   {
     title: "Pulse Fashion Reel",
-    description: "Fast-cut social reel with texture overlays and modern transitions.",
+    details: "Fast-cut social reel with texture overlays and modern transitions.",
     reel: "https://cdn.coverr.co/videos/coverr-a-journey-through-the-city-1560/1080p.mp4",
   },
   {
     title: "Atlas Documentary",
-    description: "Emotional narrative edit with restrained sound-space rhythm.",
+    details: "Emotional narrative edit with restrained sound-space rhythm.",
     reel: "https://cdn.coverr.co/videos/coverr-sunset-over-mountains-1573/1080p.mp4",
   },
 ];
@@ -122,6 +122,9 @@ export default function Home() {
 
   const handleContactSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const form = event.currentTarget;
+    form.reset();
+    console.info("Contact inquiry submitted.");
   };
 
   return (
@@ -199,7 +202,7 @@ export default function Home() {
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold">{project.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-zinc-300">{project.description}</p>
+                <p className="mt-3 text-sm leading-7 text-zinc-300">{project.details}</p>
               </div>
             </motion.article>
           ))}
@@ -248,15 +251,15 @@ export default function Home() {
             <label className="sr-only" htmlFor="contact-name">
               Your Name
             </label>
-            <input id="contact-name" className="rounded-xl border border-white/20 bg-black/30 px-4 py-3 outline-none transition focus:border-violet-400" type="text" placeholder="Your Name" />
+            <input id="contact-name" className="rounded-xl border border-white/20 bg-black/30 px-4 py-3 outline-none transition focus:border-violet-400" type="text" placeholder="Your Name" required />
             <label className="sr-only" htmlFor="contact-email">
               Email Address
             </label>
-            <input id="contact-email" className="rounded-xl border border-white/20 bg-black/30 px-4 py-3 outline-none transition focus:border-violet-400" type="email" placeholder="Email Address" />
+            <input id="contact-email" className="rounded-xl border border-white/20 bg-black/30 px-4 py-3 outline-none transition focus:border-violet-400" type="email" placeholder="Email Address" required />
             <label className="sr-only" htmlFor="contact-message">
               Project Details
             </label>
-            <textarea id="contact-message" className="min-h-36 rounded-xl border border-white/20 bg-black/30 px-4 py-3 outline-none transition focus:border-violet-400" placeholder="Tell me about your project" />
+            <textarea id="contact-message" className="min-h-36 rounded-xl border border-white/20 bg-black/30 px-4 py-3 outline-none transition focus:border-violet-400" placeholder="Tell me about your project" required />
             <button className="mt-2 w-fit rounded-full bg-violet-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-violet-400" type="submit">
               Send Inquiry
             </button>
