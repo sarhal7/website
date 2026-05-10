@@ -6,6 +6,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import type { Variants } from "framer-motion";
 import gsap from "gsap";
 import { useEffect, useRef } from "react";
+import type { FormEvent } from "react";
 import type { Mesh } from "three";
 
 type Project = {
@@ -119,6 +120,10 @@ export default function Home() {
     };
   }, []);
 
+  const handleContactSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
+
   return (
     <main className="site-shell bg-[#06060a] text-[#f4f4f5]">
       <div ref={cursorRef} className="dynamic-cursor" />
@@ -131,6 +136,7 @@ export default function Home() {
           loop
           muted
           playsInline
+          aria-hidden="true"
         />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(139,92,246,0.2),transparent_45%),linear-gradient(to_bottom,rgba(6,6,10,0.45),rgba(6,6,10,0.95))]" />
 
@@ -139,7 +145,7 @@ export default function Home() {
             <p className="hero-reveal mb-6 inline-flex rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.3em] backdrop-blur">
               Cinematic Video Editor
             </p>
-            <h1 className="hero-reveal max-w-4xl font-serif text-5xl leading-[0.95] md:text-7xl">
+            <h1 className="hero-reveal max-w-4xl font-serif text-5xl leading-[1.06] md:text-7xl">
               I craft <span className="text-violet-300">immersive films</span> for bold brands.
             </h1>
             <p className="hero-reveal mt-8 max-w-xl text-base leading-8 text-zinc-300 md:text-lg">
@@ -180,7 +186,15 @@ export default function Home() {
           {projects.map((project, index) => (
             <motion.article key={project.title} variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} transition={{ delay: index * 0.05 }} className="group overflow-hidden rounded-2xl border border-white/15 bg-white/[0.03]">
               <div className="relative h-56 overflow-hidden">
-                <video src={project.reel} muted autoPlay loop playsInline className="h-full w-full object-cover transition duration-700 group-hover:scale-110 group-hover:contrast-125" />
+                <video
+                  src={project.reel}
+                  muted
+                  autoPlay
+                  loop
+                  playsInline
+                  controls
+                  className="h-full w-full object-cover transition duration-700 group-hover:scale-110 group-hover:contrast-125"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
               </div>
               <div className="p-6">
@@ -230,10 +244,19 @@ export default function Home() {
       <section id="contact" className="mx-auto max-w-4xl px-6 pb-24 pt-16 md:px-16">
         <div className="glass-panel rounded-3xl border border-white/15 p-8 md:p-12">
           <h2 className="font-serif text-4xl md:text-5xl">Let&apos;s build your next cinematic story.</h2>
-          <form className="mt-8 grid gap-4">
-            <input className="rounded-xl border border-white/20 bg-black/30 px-4 py-3 outline-none transition focus:border-violet-400" type="text" placeholder="Your Name" />
-            <input className="rounded-xl border border-white/20 bg-black/30 px-4 py-3 outline-none transition focus:border-violet-400" type="email" placeholder="Email Address" />
-            <textarea className="min-h-36 rounded-xl border border-white/20 bg-black/30 px-4 py-3 outline-none transition focus:border-violet-400" placeholder="Tell me about your project" />
+          <form className="mt-8 grid gap-4" onSubmit={handleContactSubmit}>
+            <label className="sr-only" htmlFor="contact-name">
+              Your Name
+            </label>
+            <input id="contact-name" className="rounded-xl border border-white/20 bg-black/30 px-4 py-3 outline-none transition focus:border-violet-400" type="text" placeholder="Your Name" />
+            <label className="sr-only" htmlFor="contact-email">
+              Email Address
+            </label>
+            <input id="contact-email" className="rounded-xl border border-white/20 bg-black/30 px-4 py-3 outline-none transition focus:border-violet-400" type="email" placeholder="Email Address" />
+            <label className="sr-only" htmlFor="contact-message">
+              Project Details
+            </label>
+            <textarea id="contact-message" className="min-h-36 rounded-xl border border-white/20 bg-black/30 px-4 py-3 outline-none transition focus:border-violet-400" placeholder="Tell me about your project" />
             <button className="mt-2 w-fit rounded-full bg-violet-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-violet-400" type="submit">
               Send Inquiry
             </button>
