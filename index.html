@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghufran | Cinematic Video Editor & Motion Designer</title>
+    <meta name="description" content="Portfolio of Ghufran, a professional video editor specializing in cinematic storytelling and modern motion design.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div id="cursor"></div>
+    <div id="cursor-follower"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">GHUFRAN.</div>
+        <div class="nav-links">
+            <a href="#work" class="magnetic">Work</a>
+            <a href="#about" class="magnetic">About</a>
+            <a href="#contact" class="magnetic">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="hero.png" alt="Futuristic Cinematic Element" class="hero-image">
+        <h1 class="hero-title reveal-text">CREATIVE<br><span class="glow-text">STORYTELLER</span></h1>
+        <p class="hero-subtitle reveal-item">Video Editor & Motion Designer</p>
+        <a href="#work" class="btn magnetic reveal-item">View Showreel</a>
+    </section>
+
+    <!-- Showcase Section -->
+    <section id="work" class="section-padding">
+        <h2 class="section-title reveal-item">Selected Work</h2>
+        <div class="project-grid">
+            <div class="project-card reveal-item">
+                <img src="project1.png" alt="Futuristic Car Commercial" class="project-image">
+                <div class="project-info">
+                    <p class="project-category">Commercial</p>
+                    <h3 class="project-name">The Future of Velocity</h3>
+                </div>
+            </div>
+            <div class="project-card reveal-item">
+                <img src="project2.png" alt="Neon Music Video" class="project-image">
+                <div class="project-info">
+                    <p class="project-category">Music Video</p>
+                    <h3 class="project-name">Neon Heartbeat</h3>
+                </div>
+            </div>
+            <!-- Duplicate for grid effect -->
+            <div class="project-card reveal-item">
+                <img src="project1.png" alt="Abstract Project" class="project-image" style="filter: hue-rotate(90deg);">
+                <div class="project-info">
+                    <p class="project-category">Motion Graphics</p>
+                    <h3 class="project-name">Abstract Dimensions</h3>
+                </div>
+            </div>
+            <div class="project-card reveal-item">
+                <img src="project2.png" alt="Visual Effects Project" class="project-image" style="filter: hue-rotate(-90deg);">
+                <div class="project-info">
+                    <p class="project-category">Visual Effects</p>
+                    <h3 class="project-name">Cybernetic Reality</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section-padding" style="background: var(--glass);">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <h2 class="section-title reveal-item">The Vision</h2>
+            <p class="reveal-item" style="font-size: 1.5rem; color: var(--text-secondary); margin-bottom: 40px;">
+                I transform raw footage into immersive digital experiences. With a focus on cinematic rhythm, atmospheric lighting, and futuristic motion design, I help brands and artists tell stories that resonate in the modern age.
+            </p>
+            <div class="reveal-item" style="display: flex; gap: 40px; margin-top: 60px;">
+                <div>
+                    <h4 style="color: var(--accent); margin-bottom: 10px;">EXPERIENCE</h4>
+                    <p>8+ Years</p>
+                </div>
+                <div>
+                    <h4 style="color: var(--accent); margin-bottom: 10px;">PROJECTS</h4>
+                    <p>150+ Delivered</p>
+                </div>
+                <div>
+                    <h4 style="color: var(--accent); margin-bottom: 10px;">CLIENTS</h4>
+                    <p>Global Impact</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-brand">
+            <h2>LET'S CREATE<br><span class="glow-text">SOMETHING EPIC</span></h2>
+            <p>Available for freelance and creative partnerships.</p>
+            <a href="mailto:hello@ghufran.com" class="btn magnetic" style="margin-top: 30px;">Get in Touch</a>
+        </div>
+        <div class="footer-links">
+            <h4>SOCIAL</h4>
+            <ul>
+                <li><a href="#" class="magnetic">Instagram</a></li>
+                <li><a href="#" class="magnetic">Vimeo</a></li>
+                <li><a href="#" class="magnetic">Twitter</a></li>
+                <li><a href="#" class="magnetic">LinkedIn</a></li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <h4>NAVIGATE</h4>
+            <ul>
+                <li><a href="#" class="magnetic">Home</a></li>
+                <li><a href="#work" class="magnetic">Work</a></li>
+                <li><a href="#about" class="magnetic">About</a></li>
+            </ul>
+        </div>
+        <div class="copyright">
+            &copy; 2024 GHUFRAN. DESIGNED BY ANTIGRAVITY.
+        </div>
+    </footer>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
