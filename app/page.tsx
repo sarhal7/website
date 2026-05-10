@@ -11,25 +11,25 @@ import type { Mesh } from "three";
 
 type Project = {
   title: string;
-  details: string;
-  reel: string;
+  description: string;
+  reelUrl: string;
 };
 
 const projects: Project[] = [
   {
     title: "Noir Brand Film",
-    details: "Luxury campaign edit with dramatic pacing and cinematic grade.",
-    reel: "https://cdn.coverr.co/videos/coverr-empty-road-at-night-1579/1080p.mp4",
+    description: "Luxury campaign edit with dramatic pacing and cinematic grade.",
+    reelUrl: "https://cdn.coverr.co/videos/coverr-empty-road-at-night-1579/1080p.mp4",
   },
   {
     title: "Pulse Fashion Reel",
-    details: "Fast-cut social reel with texture overlays and modern transitions.",
-    reel: "https://cdn.coverr.co/videos/coverr-a-journey-through-the-city-1560/1080p.mp4",
+    description: "Fast-cut social reel with texture overlays and modern transitions.",
+    reelUrl: "https://cdn.coverr.co/videos/coverr-a-journey-through-the-city-1560/1080p.mp4",
   },
   {
     title: "Atlas Documentary",
-    details: "Emotional narrative edit with restrained sound-space rhythm.",
-    reel: "https://cdn.coverr.co/videos/coverr-sunset-over-mountains-1573/1080p.mp4",
+    description: "Emotional narrative edit with restrained sound-space rhythm.",
+    reelUrl: "https://cdn.coverr.co/videos/coverr-sunset-over-mountains-1573/1080p.mp4",
   },
 ];
 
@@ -191,7 +191,7 @@ export default function Home() {
             <motion.article key={project.title} variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} transition={{ delay: index * 0.05 }} className="group overflow-hidden rounded-2xl border border-white/15 bg-white/[0.03]">
               <div className="relative h-56 overflow-hidden">
                 <video
-                  src={project.reel}
+                  src={project.reelUrl}
                   muted
                   autoPlay
                   loop
@@ -203,7 +203,7 @@ export default function Home() {
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold">{project.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-zinc-300">{project.details}</p>
+                <p className="mt-3 text-sm leading-7 text-zinc-300">{project.description}</p>
               </div>
             </motion.article>
           ))}
