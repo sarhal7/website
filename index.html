@@ -511,6 +511,34 @@
             min-height: 150px;
         }
 
+        .form-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .form-message.success {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--primary);
+            display: block;
+        }
+
+        .form-message.error {
+            background: rgba(255, 0, 110, 0.1);
+            border: 1px solid rgba(255, 0, 110, 0.3);
+            color: var(--secondary);
+            display: block;
+        }
+
+        .btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
         /* Footer */
         footer {
             background: rgba(0, 0, 0, 0.3);
@@ -805,7 +833,8 @@
     <section id="contact" class="section-padding">
         <h2 class="section-title reveal-item">Get in Touch</h2>
         <div class="contact-form reveal-item">
-            <form>
+            <div class="form-message" id="formMessage"></div>
+            <form id="contactForm">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" required>
@@ -818,7 +847,7 @@
                     <label for="project">Project Details</label>
                     <textarea id="project" name="project" required></textarea>
                 </div>
-                <button type="submit" class="btn">Send Message</button>
+                <button type="submit" class="btn" id="submitBtn">Send Message</button>
             </form>
         </div>
     </section>
@@ -858,10 +887,16 @@
         </div>
     </footer>
 
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js"></script>
+    
     <!-- GSAP for Animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script>
+        // Initialize EmailJS
+        emailjs.init("KOYeVnJKhfr7jDKhP");
+
         // Custom Cursor
         const cursor = document.getElementById('cursor');
         const cursorFollower = document.getElementById('cursor-follower');
@@ -911,11 +946,62 @@
             );
         });
 
-        // Form Submit
-        document.querySelector('form').addEventListener('submit', (e) => {
+        // Form Submit with EmailJS
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Thank you for reaching out! I will get back to you soon.');
-            document.querySelector('form').reset();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const formMessage = document.getElementById('formMessage');
+            
+            // Disable button during submission
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+
+            // Prepare email parameters
+            const templateParams = {
+                to_email: 'ghufranhafeez007@gmail.com',
+                from_name: document.getElementById('name').value,
+                from_email: document.getElementById('email').value,
+                message: document.getElementById('project').value,
+                reply_to: document.getElementById('email').value
+            };
+
+            // Send email via EmailJS
+            emailjs.send('service_id_placeholder', 'template_id_placeholder', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    
+                    // Show success message
+                    formMessage.classList.remove('error');
+                    formMessage.classList.add('success');
+                    formMessage.textContent = '✅ Message sent successfully! I will get back to you soon.';
+                    
+                    // Reset form
+                    document.getElementById('contactForm').reset();
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Send Message';
+                    
+                    // Hide message after 5 seconds
+                    setTimeout(() => {
+                        formMessage.classList.remove('success');
+                    }, 5000);
+                })
+                .catch(function(error) {
+                    console.log('FAILED...', error);
+                    
+                    // Show error message
+                    formMessage.classList.remove('success');
+                    formMessage.classList.add('error');
+                    formMessage.textContent = '❌ Failed to send message. Please try again.';
+                    
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Send Message';
+                    
+                    // Hide message after 5 seconds
+                    setTimeout(() => {
+                        formMessage.classList.remove('error');
+                    }, 5000);
+                });
         });
     </script>
 </body>
