@@ -7,10 +7,610 @@
     <meta name="description" content="Portfolio of Ghufran, a professional video editor specializing in cinematic storytelling and modern motion design.">
     <link rel="stylesheet" href="style.css">
     <style>
+        :root {
+            --primary: #00d4ff;
+            --secondary: #ff006e;
+            --accent: #8338ec;
+            --dark: #0a0e27;
+            --light: #f0f0f0;
+            --glass: rgba(255, 255, 255, 0.05);
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(-45deg, #0a0e27, #1a1a3e, #0f3a5a, #2d1b3d);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Custom Cursor */
+        #cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        #cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--secondary);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.5;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 50px;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
         .logo-image {
             height: 50px;
             width: auto;
             object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 600;
+            position: relative;
+            transition: 0.3s;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.15;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.5)); }
+            50% { filter: drop-shadow(0 0 40px rgba(255, 0, 110, 0.5)); }
+        }
+
+        .glow-text {
+            display: block;
+            animation: textGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes textGlow {
+            0%, 100% { text-shadow: 0 0 20px var(--primary), 0 0 40px var(--primary); }
+            50% { text-shadow: 0 0 30px var(--secondary), 0 0 60px var(--secondary); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 50px;
+            color: var(--dark);
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+            transition: 0.3s;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.6);
+        }
+
+        /* Section Styling */
+        .section-padding {
+            padding: 100px 50px;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 60px;
+            text-align: center;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Project Grid */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: 0.5s;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
+            border-color: var(--primary);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.1);
+            filter: brightness(1.2);
+        }
+
+        .project-info {
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .project-category {
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .project-name {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            padding: 60px;
+            margin: 60px 0;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .testimonial-card {
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 0, 110, 0.1));
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .testimonial-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Clients Section */
+        .clients {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            padding: 60px;
+            margin: 60px 0;
+            border: 1px solid rgba(255, 0, 110, 0.2);
+            text-align: center;
+        }
+
+        .clients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .client-logo {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+
+        .client-logo:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        /* Blog Section */
+        .blog {
+            margin: 60px 0;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .blog-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(131, 56, 236, 0.2);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: 0.5s;
+            cursor: pointer;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 40px rgba(131, 56, 236, 0.2);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .blog-content {
+            padding: 25px;
+        }
+
+        .blog-date {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .blog-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .blog-excerpt {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* About Section */
+        .about-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-section p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            flex: 1;
+            min-width: 150px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(131, 56, 236, 0.1));
+            border-radius: 10px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--accent);
+            margin-top: 10px;
+            font-weight: 700;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 60px auto 0;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: inherit;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 60px 50px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-brand {
+            margin-bottom: 60px;
+            max-width: 600px;
+        }
+
+        .footer-brand h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: inline-block;
+            margin-right: 60px;
+            margin-bottom: 30px;
+        }
+
+        .footer-links h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+            transition: 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .copyright {
+            color: var(--text-secondary);
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            margin-top: 30px;
+        }
+
+        /* Reveal Animation */
+        .reveal-item {
+            opacity: 0;
+            animation: slideUp 1s ease-out forwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Magnetic Effect */
+        .magnetic {
+            position: relative;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .section-padding {
+                padding: 60px 30px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .footer-links {
+                display: block;
+                margin-right: 0;
+            }
         }
     </style>
 </head>
@@ -27,6 +627,7 @@
         <div class="nav-links">
             <a href="#work" class="magnetic">Work</a>
             <a href="#about" class="magnetic">About</a>
+            <a href="#testimonials" class="magnetic">Testimonials</a>
             <a href="#contact" class="magnetic">Contact</a>
         </div>
     </nav>
@@ -34,7 +635,7 @@
     <!-- Hero Section -->
     <section class="hero">
         <img src="hero.png" alt="Futuristic Cinematic Element" class="hero-image">
-        <h1 class="hero-title reveal-text">CREATIVE<br><span class="glow-text">STORYTELLER</span></h1>
+        <h1 class="hero-title reveal-item">CREATIVE<br><span class="glow-text">STORYTELLER</span></h1>
         <p class="hero-subtitle reveal-item">Video Editor & Motion Designer</p>
         <a href="#work" class="btn magnetic reveal-item">View Showreel</a>
     </section>
@@ -57,7 +658,6 @@
                     <h3 class="project-name">Color Grading</h3>
                 </div>
             </div>
-            <!-- Unique images for each project -->
             <div class="project-card reveal-item">
                 <img src="wave-line-001-vector.jpg" alt="3D Editing" class="project-image">
                 <div class="project-info">
@@ -75,36 +675,131 @@
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="section-padding" style="background: var(--glass);">
-        <div style="max-width: 800px; margin: 0 auto;">
-            <h2 class="section-title reveal-item">The Vision</h2>
-            <p class="reveal-item" style="font-size: 1.5rem; color: var(--text-secondary); margin-bottom: 40px;">
-                I transform raw footage into immersive digital experiences. With a focus on cinematic rhythm, atmospheric lighting, and futuristic motion design, I help brands and artists tell sto[...]
-            </p>
-            <div class="reveal-item" style="display: flex; gap: 40px; margin-top: 60px;">
-                <div>
-                    <h4 style="color: var(--accent); margin-bottom: 10px;">EXPERIENCE</h4>
-                    <p>8+ Years</p>
+    <!-- Clients Section -->
+    <section class="section-padding">
+        <div class="clients reveal-item">
+            <h2 class="section-title">Trusted By Industry Leaders</h2>
+            <div class="clients-grid">
+                <div class="client-logo">Netflix</div>
+                <div class="client-logo">YouTube</div>
+                <div class="client-logo">Amazon</div>
+                <div class="client-logo">Sony</div>
+                <div class="client-logo">Canon</div>
+                <div class="client-logo">Adobe</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="section-padding blog">
+        <h2 class="section-title reveal-item">Latest Articles</h2>
+        <div class="blog-grid">
+            <div class="blog-card reveal-item">
+                <div class="blog-image">📹</div>
+                <div class="blog-content">
+                    <div class="blog-date">May 10, 2026</div>
+                    <div class="blog-title">Cinematic Color Grading Techniques</div>
+                    <div class="blog-excerpt">Master the art of color grading and take your videos to the next level with professional techniques.</div>
                 </div>
-                <div>
-                    <h4 style="color: var(--accent); margin-bottom: 10px;">PROJECTS</h4>
-                    <p>150+ Delivered</p>
+            </div>
+            <div class="blog-card reveal-item">
+                <div class="blog-image">🎬</div>
+                <div class="blog-content">
+                    <div class="blog-date">May 8, 2026</div>
+                    <div class="blog-title">Motion Design Trends 2026</div>
+                    <div class="blog-excerpt">Explore the latest motion design trends and how to incorporate them into your projects.</div>
                 </div>
-                <div>
-                    <h4 style="color: var(--accent); margin-bottom: 10px;">CLIENTS</h4>
-                    <p>Global Impact</p>
+            </div>
+            <div class="blog-card reveal-item">
+                <div class="blog-image">✨</div>
+                <div class="blog-content">
+                    <div class="blog-date">May 5, 2026</div>
+                    <div class="blog-title">Visual Effects Mastery</div>
+                    <div class="blog-excerpt">Learn advanced VFX techniques to create stunning visual effects that captivate your audience.</div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- About Section -->
+    <section id="about" class="section-padding" style="background: rgba(255, 255, 255, 0.02); border-top: 1px solid rgba(0, 212, 255, 0.2); border-bottom: 1px solid rgba(0, 212, 255, 0.2);">
+        <div class="about-section">
+            <h2 class="section-title reveal-item">The Vision</h2>
+            <p class="reveal-item">
+                I transform raw footage into immersive digital experiences. With a focus on cinematic rhythm, atmospheric lighting, and futuristic motion design, I help brands and artists tell compelling stories through video.
+            </p>
+            <p class="reveal-item">
+                My passion lies in creating content that not only looks stunning but also resonates with audiences on an emotional level. Every frame is carefully crafted to deliver maximum impact.
+            </p>
+            <div class="stats">
+                <div class="stat reveal-item">
+                    <div class="stat-number">8+</div>
+                    <div class="stat-label">YEARS EXPERIENCE</div>
+                </div>
+                <div class="stat reveal-item">
+                    <div class="stat-number">150+</div>
+                    <div class="stat-label">PROJECTS DELIVERED</div>
+                </div>
+                <div class="stat reveal-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">SATISFIED CLIENTS</div>
+                </div>
+                <div class="stat reveal-item">
+                    <div class="stat-number">10M+</div>
+                    <div class="stat-label">TOTAL VIEWS</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section-padding">
+        <h2 class="section-title reveal-item">What Clients Say</h2>
+        <div class="testimonials reveal-item">
+            <div class="testimonial-grid">
+                <div class="testimonial-card reveal-item">
+                    <div class="testimonial-text">"Ghufran's work is absolutely phenomenal. He transformed our brand vision into stunning visuals that exceeded our expectations!"</div>
+                    <div class="testimonial-author">- Sarah Johnson, Brand Director</div>
+                </div>
+                <div class="testimonial-card reveal-item">
+                    <div class="testimonial-text">"Professional, creative, and incredibly responsive. Ghufran is the best video editor I've worked with."</div>
+                    <div class="testimonial-author">- Mike Chen, Content Creator</div>
+                </div>
+                <div class="testimonial-card reveal-item">
+                    <div class="testimonial-text">"The quality of motion design and color grading is unmatched. Highly recommended for any serious project!"</div>
+                    <div class="testimonial-author">- Emma Wilson, Producer</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-padding">
+        <h2 class="section-title reveal-item">Get in Touch</h2>
+        <div class="contact-form reveal-item">
+            <form>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="project">Project Details</label>
+                    <textarea id="project" name="project" required></textarea>
+                </div>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
     <!-- Footer -->
-    <footer id="contact">
+    <footer>
         <div class="footer-brand">
             <h2>LET'S CREATE<br><span class="glow-text">SOMETHING EPIC</span></h2>
             <p>Available for freelance and creative partnerships.</p>
-            <a href="mailto:ghufranhafeez007@gmail.com" class="btn magnetic" style="margin-top: 30px;">Get in Touch</a>
         </div>
         <div class="footer-links">
             <h4>SOCIAL</h4>
@@ -112,7 +807,7 @@
                 <li><a href="https://www.instagram.com/ssup_ghufran?igsh=MWRuMTVjYmI2aXpweg==" class="magnetic" target="_blank">Instagram</a></li>
                 <li><a href="https://www.fiverr.com/s/xX883aa" class="magnetic" target="_blank">Fiverr</a></li>
                 <li><a href="https://www.youtube.com/channel/UCjn3xJVCLrXiFxuhrvb_etw" class="magnetic" target="_blank">YouTube</a></li>
-                <li><a href="www.linkedin.com/in/ghufranhafeez07" class="magnetic" target="_blank">LinkedIn</a></li>
+                <li><a href="https://www.linkedin.com/in/ghufranhafeez07" class="magnetic" target="_blank">LinkedIn</a></li>
             </ul>
         </div>
         <div class="footer-links">
@@ -127,6 +822,7 @@
                 <li><a href="#" class="magnetic">Home</a></li>
                 <li><a href="#work" class="magnetic">Work</a></li>
                 <li><a href="#about" class="magnetic">About</a></li>
+                <li><a href="#blog" class="magnetic">Blog</a></li>
             </ul>
         </div>
         <div class="copyright">
@@ -137,6 +833,62 @@
     <!-- GSAP for Animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="script.js"></script>
+    <script>
+        // Custom Cursor
+        const cursor = document.getElementById('cursor');
+        const cursorFollower = document.getElementById('cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX - 10 + 'px';
+            cursor.style.top = e.clientY - 10 + 'px';
+
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX - 20 + 'px';
+                cursorFollower.style.top = e.clientY - 20 + 'px';
+            }, 50);
+        });
+
+        // Magnetic Effect
+        const magneticElements = document.querySelectorAll('.magnetic');
+        magneticElements.forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = (e.clientX - rect.left - rect.width / 2) * 0.3;
+                const y = (e.clientY - rect.top - rect.height / 2) * 0.3;
+                el.style.transform = `translate(${x}px, ${y}px)`;
+            });
+
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = 'translate(0, 0)';
+            });
+        });
+
+        // Scroll Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.utils.toArray('.reveal-item').forEach(element => {
+            gsap.fromTo(element,
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top 80%',
+                        end: 'top 20%',
+                        scrub: false,
+                    }
+                }
+            );
+        });
+
+        // Form Submit
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for reaching out! I will get back to you soon.');
+            document.querySelector('form').reset();
+        });
+    </script>
 </body>
 </html>
