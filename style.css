@@ -109,9 +109,17 @@ h1 {
   display: inline-block;
 }
 
-.terminal-dot-red { background: #ff5f56; }
-.terminal-dot-yellow { background: #ffbd2f; }
-.terminal-dot-green { background: #27c93f; }
+.terminal-dot-red {
+  background: #ff5f56;
+}
+
+.terminal-dot-yellow {
+  background: #ffbd2f;
+}
+
+.terminal-dot-green {
+  background: #27c93f;
+}
 
 .title {
   margin-left: auto;

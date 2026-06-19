@@ -11,6 +11,8 @@ const lines = [
 const CONFETTI_COLORS = ["#6de3ff", "#9f7aea", "#ffd166", "#ff6b6b"];
 const BASE_TYPING_SPEED = 45;
 const TYPING_VARIANCE = 35;
+const DEFAULT_CONFETTI_COUNT = 120;
+const BUTTON_CONFETTI_COUNT = 220;
 
 let lineIndex = 0;
 let charIndex = 0;
@@ -65,7 +67,7 @@ function resizeCanvas() {
   canvas.height = window.innerHeight;
 }
 
-function spawnConfetti(count = 120) {
+function spawnConfetti(count = DEFAULT_CONFETTI_COUNT) {
   if (!canvas) return;
   for (let i = 0; i < count; i++) {
     particles.push({
@@ -109,7 +111,7 @@ if (canvas) {
 }
 
 celebrateBtn?.addEventListener("click", () => {
-  spawnConfetti(220);
+  spawnConfetti(BUTTON_CONFETTI_COUNT);
   celebrateBtn.textContent = "Party deployed 🎊";
   window.setTimeout(() => {
     celebrateBtn.textContent = "Run Celebration()";
