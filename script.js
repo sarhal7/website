@@ -8,6 +8,9 @@ const lines = [
   "Deploying joy to production... success 🚀",
   "No hotfixes needed. Have an epic year!"
 ];
+const CONFETTI_COLORS = ["#6de3ff", "#9f7aea", "#ffd166", "#ff6b6b"];
+const BASE_TYPING_SPEED = 45;
+const TYPING_VARIANCE = 35;
 
 let lineIndex = 0;
 let charIndex = 0;
@@ -33,7 +36,7 @@ function typeLoop() {
     return;
   }
 
-  setTimeout(typeLoop, 45 + Math.random() * 35);
+  setTimeout(typeLoop, BASE_TYPING_SPEED + Math.random() * TYPING_VARIANCE);
 }
 
 typeLoop();
@@ -73,7 +76,7 @@ function spawnConfetti(count = 120) {
       speedX: -1 + Math.random() * 2,
       tilt: Math.random() * Math.PI,
       spin: -0.08 + Math.random() * 0.16,
-      color: ["#6de3ff", "#9f7aea", "#ffd166", "#ff6b6b"][Math.floor(Math.random() * 4)]
+      color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)]
     });
   }
 }
