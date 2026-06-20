@@ -125,6 +125,6 @@ celebrateBtn?.addEventListener("click", () => {
   spawnConfetti(BUTTON_CONFETTI_COUNT);
   celebrateBtn.textContent = "Party deployed 🎊";
   window.setTimeout(() => {
-    celebrateBtn.textContent = "Celebration Button";
+    celebrateBtn.textContent = "Celebrate Again 🎉";
   }, 1700);
 });
