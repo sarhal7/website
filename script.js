@@ -1,6 +1,7 @@
 const typedNode = document.getElementById("typed");
 const celebrateBtn = document.getElementById("celebrateBtn");
 const revealEls = document.querySelectorAll(".reveal");
+const loadingSurprise = document.getElementById("loadingSurprise");
 
 const lines = [
   "npm run birthday -- --to='My Favorite Dev'",
@@ -13,10 +14,20 @@ const BASE_TYPING_SPEED = 45;
 const TYPING_VARIANCE = 35;
 const DEFAULT_CONFETTI_COUNT = 120;
 const BUTTON_CONFETTI_COUNT = 220;
+const SURPRISE_DELAY_MS = 2300;
 
 let lineIndex = 0;
 let charIndex = 0;
 let pause = false;
+
+function showMainContent() {
+  document.body.classList.remove("is-loading");
+  loadingSurprise?.classList.add("is-done");
+}
+
+window.addEventListener("load", () => {
+  window.setTimeout(showMainContent, SURPRISE_DELAY_MS);
+});
 
 function typeLoop() {
   if (!typedNode) return;
@@ -114,6 +125,6 @@ celebrateBtn?.addEventListener("click", () => {
   spawnConfetti(BUTTON_CONFETTI_COUNT);
   celebrateBtn.textContent = "Party deployed 🎊";
   window.setTimeout(() => {
-    celebrateBtn.textContent = "Run Celebration()";
+    celebrateBtn.textContent = "Celebrate Again 🎉";
   }, 1700);
 });
