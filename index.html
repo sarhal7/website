@@ -10,7 +10,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="is-loading">
+  <div id="loadingSurprise" class="loading-surprise" role="status" aria-live="polite">
+    <div class="loading-card">
+      <p class="loading-label">Preparing birthday surprise...</p>
+      <div class="loading-cake" aria-hidden="true">🎂</div>
+      <div class="loading-bar" aria-hidden="true"><span></span></div>
+    </div>
+  </div>
+
   <div class="bg-orb orb-1" aria-hidden="true"></div>
   <div class="bg-orb orb-2" aria-hidden="true"></div>
 
